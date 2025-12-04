@@ -6,6 +6,7 @@
     <title>AI 4-Koma Creator</title>
     
     <script>
+      // (A) 저장소(LocalStorage) 에러 방지
       const memoryStorage = {};
       try {
         Object.defineProperty(window, 'localStorage', {
@@ -21,22 +22,11 @@
         });
       } catch (e) {}
 
-      // 2. [추가] "process is not defined" 에러 방지 (혹시 모를 충돌 예방)
+      // (B) "process is not defined" 에러 방지 (이게 핵심입니다!)
+      // 일부 라이브러리가 이걸 찾다가 없으면 하얀 화면이 됩니다.
       window.process = { env: { NODE_ENV: 'production' } };
     </script>
 
-    <script type="importmap">
-      {
-        "imports": {
-          "react": "https://esm.sh/react@18.2.0",
-          "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-          "framer-motion": "https://esm.sh/framer-motion@10.16.4",
-          "lucide-react": "https://esm.sh/lucide-react@0.292.0",
-          "zustand": "https://esm.sh/zustand@4.4.7",
-          "@google/genai": "https://esm.sh/@google/genai"
-        }
-      }
-    </script>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
