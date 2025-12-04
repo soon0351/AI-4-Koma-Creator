@@ -1,28 +1,43 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI 4-Cut Comic Creator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
-      body {
-        font-family: 'Noto Sans KR', sans-serif;
+    <title>AI 4-Koma Creator</title>
+    
+    <script>
+      const memoryStorage = {};
+      try {
+        Object.defineProperty(window, 'localStorage', {
+          value: {
+            getItem: (key) => memoryStorage[key] || null,
+            setItem: (key, value) => { memoryStorage[key] = value; },
+            removeItem: (key) => { delete memoryStorage[key]; },
+            clear: () => { for (const key in memoryStorage) delete memoryStorage[key]; },
+            length: 0,
+            key: (i) => null,
+          },
+          writable: false,
+        });
+      } catch (e) {}
+    </script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@18.2.0",
+          "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+          "framer-motion": "https://esm.sh/framer-motion@10.16.4",
+          "lucide-react": "https://esm.sh/lucide-react@0.292.0",
+          "zustand": "https://esm.sh/zustand@4.4.7",
+          "@google/genai": "https://esm.sh/@google/genai"
+        }
       }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
-    "react/": "https://aistudiocdn.com/react@^19.2.1/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0"
-  }
-}
-</script>
-</head>
-  <body class="bg-gray-50 text-gray-800">
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
