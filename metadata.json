@@ -1,0 +1,5 @@
+{
+  "name": "AI 4-Koma Creator",
+  "description": "Create 4-panel comic strips using AI. Select style, generate scripts, design characters, and produce the final comic.",
+  "requestFramePermissions": []
+}
