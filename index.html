@@ -6,7 +6,6 @@
     <title>AI 4-Koma Creator</title>
     
     <script>
-      // (A) 저장소(LocalStorage) 에러 방지
       const memoryStorage = {};
       try {
         Object.defineProperty(window, 'localStorage', {
@@ -18,19 +17,51 @@
             length: 0,
             key: (i) => null,
           },
-          writable: false,
+          writable: false
         });
-      } catch (e) {}
-
-      // (B) "process is not defined" 에러 방지 (이게 핵심입니다!)
-      // 일부 라이브러리가 이걸 찾다가 없으면 하얀 화면이 됩니다.
+      } catch (e) {
+        console.log("LocalStorage access denied, using memory fallback.");
+      }
+      // process 에러 방지
       window.process = { env: { NODE_ENV: 'production' } };
     </script>
 
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@18.2.0",
+          "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+          "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime"
+        }
+      }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'slide-up': 'slideUp 0.5s ease-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              }
+            }
+          }
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
